@@ -39,7 +39,7 @@ Call Blocker adalah aplikasi Android untuk memblokir panggilan spam secara otoma
 ## ☕ Dukung Kami (Support)
 
 Jika aplikasi ini membantu Anda terhindar dari spam, dukung pengembangannya melalui:
-- **Trakteer**: [trakteer.id/ezirs](https://trakteer.id/ezirs/tip)
+- **Trakteer**: [trakteer.id/ezirs/tip](https://trakteer.id/ezirs/tip)
 
 ---
 
