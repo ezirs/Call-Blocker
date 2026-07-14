@@ -111,7 +111,7 @@ class BlockCallScreeningService : CallScreeningService() {
                         reason = matchedRuleText
                     ))
                 }
-                showBlockedCallNotification(phoneNumber, matchedRuleText)
+                showBlockedCallNotification(phoneNumber)
             } else {
                 Log.d("CallScreening", "Allowing call: $phoneNumber")
                 withContext(kotlinx.coroutines.NonCancellable) {
@@ -128,7 +128,7 @@ class BlockCallScreeningService : CallScreeningService() {
         }
     }
 
-    private fun showBlockedCallNotification(phoneNumber: String, reason: String) {
+    private fun showBlockedCallNotification(phoneNumber: String) {
         val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
         
         val channelId = "blocked_calls_channel"
@@ -138,13 +138,21 @@ class BlockCallScreeningService : CallScreeningService() {
             val channel = android.app.NotificationChannel(channelId, channelName, android.app.NotificationManager.IMPORTANCE_LOW)
             notificationManager.createNotificationChannel(channel)
         }
+
+        val intent = android.content.Intent(applicationContext, com.ezirs.MainActivity::class.java).apply {
+            flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: android.app.PendingIntent = android.app.PendingIntent.getActivity(
+            applicationContext, 0, intent, android.app.PendingIntent.FLAG_IMMUTABLE
+        )
         
         val builder = androidx.core.app.NotificationCompat.Builder(applicationContext, channelId)
             .setSmallIcon(android.R.drawable.ic_dialog_alert)
             .setContentTitle("Panggilan Masuk Diblokir")
-            .setContentText("Nomor: $phoneNumber - $reason")
+            .setContentText("Nomor: $phoneNumber")
             .setPriority(androidx.core.app.NotificationCompat.PRIORITY_LOW)
-            .setStyle(androidx.core.app.NotificationCompat.BigTextStyle().bigText("Panggilan dari nomor $phoneNumber telah diblokir.\nAlasan: $reason"))
+            .setStyle(androidx.core.app.NotificationCompat.BigTextStyle().bigText("Panggilan dari nomor $phoneNumber telah diblokir."))
+            .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             
         // Check permission strictly for Android 13+

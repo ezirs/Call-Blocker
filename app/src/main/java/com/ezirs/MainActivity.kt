@@ -269,6 +269,36 @@ fun CallBlockerScreen(
                 Column {
                     Text(stringResource(R.string.msg_contact_warning, matches.size))
                     Spacer(modifier = Modifier.height(8.dp))
+                    
+                    val allMatchesSelected = matches.isNotEmpty() && matches.all { selectedContactsForWhitelist.contains(it.number) }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                if (allMatchesSelected) {
+                                    selectedContactsForWhitelist = selectedContactsForWhitelist - matches.map { it.number }.toSet()
+                                } else {
+                                    selectedContactsForWhitelist = selectedContactsForWhitelist + matches.map { it.number }.toSet()
+                                }
+                            }
+                            .padding(vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = allMatchesSelected,
+                            onCheckedChange = { checked ->
+                                if (checked) {
+                                    selectedContactsForWhitelist = selectedContactsForWhitelist + matches.map { it.number }.toSet()
+                                } else {
+                                    selectedContactsForWhitelist = selectedContactsForWhitelist - matches.map { it.number }.toSet()
+                                }
+                            }
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.lbl_select_all, matches.size), fontWeight = FontWeight.Bold)
+                    }
+
+                    Spacer(modifier = Modifier.height(4.dp))
                     val dialogListState1 = rememberLazyListState()
                     LazyColumn(
                         state = dialogListState1,
@@ -441,7 +471,7 @@ fun CallBlockerScreen(
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = 16.dp)
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
         ) {
             Surface(
                 modifier = Modifier.fillMaxSize(),
@@ -489,7 +519,8 @@ fun CallBlockerScreen(
                         modifier = Modifier
                             .weight(1f, fill = false)
                             .simpleVerticalScrollbar(listState),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        contentPadding = PaddingValues(bottom = 80.dp)
                     ) {
                         items(items) { rule ->
                             Row(
@@ -780,7 +811,8 @@ fun LogsScreen(modifier: Modifier = Modifier, viewModel: MainViewModel, isBlocke
         LazyColumn(
             state = logsListState,
             modifier = Modifier.simpleVerticalScrollbar(logsListState),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(bottom = 80.dp)
         ) {
             if (groupByRule) {
                 // Determine order of groups based on the sortedLogs
@@ -903,57 +935,55 @@ fun SettingsScreen(modifier: Modifier = Modifier, viewModel: MainViewModel) {
         contract = ActivityResultContracts.CreateDocument("application/json")
     ) { uri ->
         uri?.let {
-            coroutineScope.launch(Dispatchers.IO) {
-                try {
-                    val dbFile = context.getDatabasePath("call_blocker_database")
-                    if (dbFile.exists()) {
-                        context.contentResolver.openOutputStream(it)?.use { outputStream ->
-                            dbFile.inputStream().use { inputStream ->
-                                inputStream.copyTo(outputStream)
-                            }
-                        }
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(context, context.getString(R.string.msg_export_success), Toast.LENGTH_LONG).show()
-                        }
-                    }
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(context, context.getString(R.string.msg_export_failed), Toast.LENGTH_SHORT).show()
-                    }
+            viewModel.exportToJson(context, it) { success ->
+                if (success) {
+                    Toast.makeText(context, context.getString(R.string.msg_export_success), Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, context.getString(R.string.msg_export_failed), Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
+    var showImportWarningDialog by remember { mutableStateOf(false) }
     val importLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
     ) { uri ->
         uri?.let {
-            coroutineScope.launch(Dispatchers.IO) {
-                try {
-                    val dbFile = context.getDatabasePath("call_blocker_database")
-                    context.contentResolver.openInputStream(it)?.use { inputStream ->
-                        dbFile.outputStream().use { outputStream ->
-                            inputStream.copyTo(outputStream)
-                        }
-                    }
-                    (context as? android.app.Activity)?.recreate()
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(context, context.getString(R.string.msg_restore_success), Toast.LENGTH_LONG).show()
-                    }
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(context, context.getString(R.string.msg_restore_failed), Toast.LENGTH_SHORT).show()
-                    }
+            viewModel.importFromJson(context, it) { success ->
+                if (success) {
+                    Toast.makeText(context, context.getString(R.string.msg_restore_success), Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, context.getString(R.string.msg_restore_failed), Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    if (showImportWarningDialog) {
+        AlertDialog(
+            onDismissRequest = { showImportWarningDialog = false },
+            title = { Text(stringResource(R.string.title_import_warning)) },
+            text = { Text(stringResource(R.string.msg_import_warning)) },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showImportWarningDialog = false
+                        importLauncher.launch(arrayOf("application/json", "*/*"))
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                ) { Text(stringResource(R.string.btn_continue_import)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showImportWarningDialog = false }) { Text(stringResource(R.string.btn_cancel)) }
+            }
+        )
     }
 
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 80.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
@@ -1054,7 +1084,7 @@ fun SettingsScreen(modifier: Modifier = Modifier, viewModel: MainViewModel) {
                 Text(stringResource(R.string.desc_json_backup), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 
                 Button(
-                    onClick = { exportLauncher.launch("call_blocker_backup.json") },
+                    onClick = { exportLauncher.launch("call_blocker_backup_${java.text.SimpleDateFormat("yyyyMMdd_HHmmss", java.util.Locale.getDefault()).format(java.util.Date())}.json") },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
@@ -1062,7 +1092,7 @@ fun SettingsScreen(modifier: Modifier = Modifier, viewModel: MainViewModel) {
                 }
                 
                 Button(
-                    onClick = { importLauncher.launch(arrayOf("application/json", "*/*")) },
+                    onClick = { showImportWarningDialog = true },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
                 ) {
@@ -1310,7 +1340,8 @@ fun WhitelistScreen(modifier: Modifier = Modifier, viewModel: MainViewModel) {
         LazyColumn(
             state = logsListState,
             modifier = Modifier.simpleVerticalScrollbar(logsListState),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(bottom = 80.dp)
         ) {
                 items(whitelists) { item ->
                     Card(
@@ -1374,5 +1405,5 @@ fun getAllContacts(context: android.content.Context): List<ContactMatch> {
             contacts.add(ContactMatch(name, number))
         }
     }
-    return contacts
+    return contacts.distinctBy { it.number.replace(" ", "").replace("-", "") }.sortedBy { it.name.lowercase() }
 }

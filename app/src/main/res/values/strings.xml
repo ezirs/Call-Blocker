@@ -82,4 +82,8 @@
     <string name="cd_search">Cari</string>
     <string name="cd_rules">Aturan</string>
     <string name="lbl_anonymous">Anonim</string>
+
+    <string name="title_import_warning">Peringatan Import</string>
+    <string name="msg_import_warning">PENTING: Mengimpor data akan menggantikan (menimpa) semua data saat ini, termasuk daftar aturan filter, riwayat log panggilan diblokir dan lolos, serta data whitelist. Apakah Anda yakin ingin melanjutkan?</string>
+    <string name="btn_continue_import">Lanjutkan Import</string>
 </resources>

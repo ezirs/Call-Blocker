@@ -132,7 +132,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 
                 // Read Rules
                 if (rootObj.has("rules")) {
-                    db.query("DELETE FROM call_rules", null)?.close()
+                    db.callRuleDao().clearAllRules()
                     val rulesArray = rootObj.getJSONArray("rules")
                     for (i in 0 until rulesArray.length()) {
                         val obj = rulesArray.getJSONObject(i)
@@ -147,7 +147,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 
                 // Read Logs
                 if (rootObj.has("logs")) {
-                    db.query("DELETE FROM call_logs", null)?.close()
+                    db.callRuleDao().clearAllLogs()
                     val logsArray = rootObj.getJSONArray("logs")
                     for (i in 0 until logsArray.length()) {
                         val obj = logsArray.getJSONObject(i)
@@ -162,7 +162,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 
                 // Read Whitelist
                 if (rootObj.has("whitelist")) {
-                    db.query("DELETE FROM whitelist_numbers", null)?.close()
+                    db.callRuleDao().clearAllWhitelist()
                     val wlArray = rootObj.getJSONArray("whitelist")
                     for (i in 0 until wlArray.length()) {
                         val obj = wlArray.getJSONObject(i)

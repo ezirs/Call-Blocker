@@ -82,4 +82,8 @@
     <string name="cd_search">Search</string>
     <string name="cd_rules">Rules</string>
     <string name="lbl_anonymous">Anonymous</string>
+
+    <string name="title_import_warning">Import Warning</string>
+    <string name="msg_import_warning">IMPORTANT: Importing data will replace (overwrite) all your current data, including your filter rules, blocked and passed call logs, and whitelist data. Are you sure you want to continue?</string>
+    <string name="btn_continue_import">Continue Import</string>
 </resources>

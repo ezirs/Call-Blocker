@@ -46,4 +46,12 @@ interface CallRuleDao {
 
     @Delete
     suspend fun deleteWhitelist(whitelist: WhitelistNumber)
+    @Query("DELETE FROM call_rules")
+    suspend fun clearAllRules()
+
+    @Query("DELETE FROM call_logs")
+    suspend fun clearAllLogs()
+
+    @Query("DELETE FROM whitelist_numbers")
+    suspend fun clearAllWhitelist()
 }
