@@ -1,6 +1,6 @@
-# ShieldCall - Smart Call Blocker
+# Call Blocker - Smart Call Filter
 
-ShieldCall (Call Blocker) adalah aplikasi Android untuk memblokir panggilan spam secara otomatis berdasarkan aturan khusus (Awalan, Akhiran, Mengandung, Sama Persis). Dilengkapi dengan fitur Whitelist, riwayat log panggilan, serta Backup & Restore aturan secara offline. Aplikasi ini berjalan sepenuhnya secara offline dan tidak memerlukan login.
+Call Blocker adalah aplikasi Android untuk memblokir panggilan spam secara otomatis berdasarkan aturan khusus (Awalan, Akhiran, Mengandung, Sama Persis). Dilengkapi dengan fitur Whitelist, riwayat log panggilan, serta Backup & Restore aturan secara offline. Aplikasi ini berjalan sepenuhnya secara offline dan tidak memerlukan login.
 
 ![Screenshot Halaman Utama / Filter](<!-- Masukkan link gambar Halaman Utama/Filter di sini -->)
 
@@ -61,7 +61,7 @@ Agar sistem filter dapat mendeteksi nomor dengan akurat (terutama untuk aturan *
 Format nomor yang masuk seringkali berbeda-beda tergantung operator atau kode negara (seperti menggunakan `+62`, `08`, dan lain-lain). Berikut adalah panduan agar filter Anda bekerja sempurna:
 
 - **Harus Sesuai Format Asli di Log HP:** 
-  Sistem akan membaca nomor apa adanya. Jika panggilan spam masuk dan di log HP Anda tertulis `+6281234567890`, maka sistem ShieldCall membacanya sebagai teks `+6281234567890`.
+  Sistem akan membaca nomor apa adanya. Jika panggilan spam masuk dan di log HP Anda tertulis `+6281234567890`, maka sistem Call Blocker membacanya sebagai teks `+6281234567890`.
 - **Contoh Penulisan yang SALAH:** 
   Jika nomor yang mengganggu adalah `+6281234567890`, jangan membuat aturan Awalan dengan mengetikkan `081234` atau `81234`. Jika ini dilakukan, aplikasi tidak akan mendeteksinya karena `+628123...` tidak sama dengan `081234...`.
 - **Contoh Penulisan yang BENAR:** 
