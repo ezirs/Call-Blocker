@@ -2,7 +2,7 @@
 
 Call Blocker adalah aplikasi Android untuk memblokir panggilan spam secara otomatis berdasarkan aturan khusus (Awalan, Akhiran, Mengandung, Sama Persis). Dilengkapi dengan fitur Whitelist, riwayat log panggilan, serta Backup & Restore aturan secara offline. Aplikasi ini berjalan sepenuhnya secara offline dan tidak memerlukan login.
 
-![Screenshot Halaman Utama / Filter](<!-- Masukkan link gambar Halaman Utama/Filter di sini -->)
+<img width="794" height="1600" alt="image" src="https://github.com/user-attachments/assets/c3b00d49-0072-4cd2-a6cc-c4107178b657" />
 
 ## Fitur Utama
 
@@ -13,14 +13,15 @@ Call Blocker adalah aplikasi Android untuk memblokir panggilan spam secara otoma
    - **Mengandung:** Memblokir nomor yang memiliki deretan angka tertentu di dalamnya.
    - **Sama Persis:** Memblokir nomor spesifik secara penuh.
    
-   ![Screenshot Tambah Aturan](<!-- Masukkan link gambar Tambah Aturan di sini -->)
+   <img width="797" height="1600" alt="image" src="https://github.com/user-attachments/assets/66d31152-b9bb-466b-9664-88fc57fcaff6" />
 
 2. **Log Panggilan (Diblokir & Lolos)**
    - **Tab Diblokir:** Melihat daftar riwayat panggilan masuk yang berhasil dicegah / diblokir oleh aplikasi. Anda dapat mengelompokkan log ini untuk melihat statistik panggilan spam yang berulang.
    - **Tab Lolos:** Melihat riwayat panggilan masuk yang tidak terkena aturan blokir dan berhasil masuk ke HP Anda.
    
-   ![Screenshot Log Diblokir](<!-- Masukkan link gambar Log Diblokir di sini -->)
-   ![Screenshot Log Lolos](<!-- Masukkan link gambar Log Lolos di sini -->)
+   <img width="797" height="1600" alt="image" src="https://github.com/user-attachments/assets/7b119cf9-fbfc-4bc8-b0d1-a863d17abd8c" />
+
+   <img width="794" height="1600" alt="image" src="https://github.com/user-attachments/assets/51a9aa10-1dfc-43d7-9a34-bb79f7be3f33" />
 
 3. **Whitelist (Daftar Putih)**
    Nomor yang berada di daftar ini **tidak akan pernah diblokir**, meskipun nomor tersebut memiliki pola yang sama dengan kriteria yang ada pada tab Filter. Anda bisa memasukkan nomor-nomor penting secara manual atau memilih langsung (memborong sekaligus) dari daftar Kontak HP Anda.
@@ -31,15 +32,14 @@ Call Blocker adalah aplikasi Android untuk memblokir panggilan spam secara otoma
    - **Personalisasi:** Ganti tema aplikasi (Terang/Gelap/Sistem) dan Bahasa antarmuka (Indonesia/Inggris).
    - **Backup & Restore (JSON):** Anda dapat mengekspor (export) seluruh aturan (rules) dan whitelist ke dalam bentuk file berformat `.json`. File ini bisa Anda simpan (backup) atau impor (restore) kapan saja, sangat berguna ketika Anda baru menginstal ulang aplikasi atau pindah ke HP baru.
    
-   ![Screenshot Pengaturan & Backup](<!-- Masukkan link gambar Halaman Pengaturan di sini -->)
+   <img width="790" height="1600" alt="image" src="https://github.com/user-attachments/assets/d29bbba7-6d14-4f7e-9d05-094b4ca855d0" />
 
 ---
 
 ## ☕ Dukung Kami (Support)
 
 Jika aplikasi ini membantu Anda terhindar dari spam, dukung pengembangannya melalui:
-- **Trakteer**: [trakteer.id/ezirs](https://trakteer.id/ezirs)
-- **GitHub**: [github.com/ezirs](https://github.com/ezirs)
+- **Trakteer**: [trakteer.id/ezirs](https://trakteer.id/ezirs/tip)
 
 ---
 
