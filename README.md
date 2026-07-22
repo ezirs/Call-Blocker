@@ -18,8 +18,8 @@ Call Blocker adalah aplikasi Android untuk memblokir panggilan spam secara otoma
 2. **Log Panggilan (Diblokir & Lolos)**
    - **Tab Diblokir:** Melihat daftar riwayat panggilan masuk yang berhasil dicegah / diblokir oleh aplikasi. Anda dapat mengelompokkan log ini untuk melihat statistik panggilan spam yang berulang.
    - **Tab Lolos:** Melihat riwayat panggilan masuk yang tidak terkena aturan blokir dan berhasil masuk ke HP Anda.
-   
-   <img width="250" alt="image" src="https://github.com/user-attachments/assets/7b119cf9-fbfc-4bc8-b0d1-a863d17abd8c" />
+
+   <img width="250" alt="image" src="https://github.com/user-attachments/assets/925601d3-d413-4913-88ae-e2c311bd890d" />
 
    <img width="250" alt="image" src="https://github.com/user-attachments/assets/51a9aa10-1dfc-43d7-9a34-bb79f7be3f33" />
 
