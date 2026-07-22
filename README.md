@@ -26,7 +26,7 @@ Call Blocker adalah aplikasi Android untuk memblokir panggilan spam secara otoma
 3. **Whitelist (Daftar Putih)**
    Nomor yang berada di daftar ini **tidak akan pernah diblokir**, meskipun nomor tersebut memiliki pola yang sama dengan kriteria yang ada pada tab Filter. Anda bisa memasukkan nomor-nomor penting secara manual atau memilih langsung (memborong sekaligus) dari daftar Kontak HP Anda.
    
-   <img width="250" alt="image" src="https://github.com/user-attachments/assets/08cf02b4-2b7f-4746-b15a-aef585becb41" />
+   ![Screenshot Halaman Whitelist](<!-- Masukkan link gambar Halaman Whitelist di sini -->)
 
 4. **Pengaturan & Backup Database**
    - **Personalisasi:** Ganti tema aplikasi (Terang/Gelap/Sistem) dan Bahasa antarmuka (Indonesia/Inggris).

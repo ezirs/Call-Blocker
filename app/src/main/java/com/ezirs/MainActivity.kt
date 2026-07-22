@@ -892,30 +892,32 @@ fun LogItem(
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = log.reason, style = MaterialTheme.typography.bodySmall, color = if (log.isBlocked) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary)
             
-            Spacer(Modifier.height(8.dp))
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                TextButton(
-                    onClick = {
-                        val fullCleanNum = log.phoneNumber.filter { it.isDigit() || it == '+' }
-                        onMakeRule(RuleType.AWALAN, fullCleanNum)
-                    },
-                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
-                    modifier = Modifier.height(32.dp)
+            if (!log.isBlocked) {
+                Spacer(Modifier.height(8.dp))
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(stringResource(R.string.btn_prefix_rule), fontSize = 12.sp)
-                }
-                TextButton(
-                    onClick = {
-                        val fullCleanNum = log.phoneNumber.filter { it.isDigit() || it == '+' }
-                        onMakeRule(RuleType.TEPAT, fullCleanNum)
-                    },
-                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
-                    modifier = Modifier.height(32.dp)
-                ) {
-                    Text(stringResource(R.string.btn_exact_match), fontSize = 12.sp)
+                    TextButton(
+                        onClick = {
+                            val fullCleanNum = log.phoneNumber.filter { it.isDigit() || it == '+' }
+                            onMakeRule(RuleType.AWALAN, fullCleanNum)
+                        },
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
+                        modifier = Modifier.height(32.dp)
+                    ) {
+                        Text(stringResource(R.string.btn_prefix_rule), fontSize = 12.sp)
+                    }
+                    TextButton(
+                        onClick = {
+                            val fullCleanNum = log.phoneNumber.filter { it.isDigit() || it == '+' }
+                            onMakeRule(RuleType.TEPAT, fullCleanNum)
+                        },
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
+                        modifier = Modifier.height(32.dp)
+                    ) {
+                        Text(stringResource(R.string.btn_exact_match), fontSize = 12.sp)
+                    }
                 }
             }
         }
